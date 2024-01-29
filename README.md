@@ -34,7 +34,7 @@ This script is designed to generate quiz-like questions on a variety of subjects
 1. **Run the Script**: Execute the script in your Python environment.
 
    ```bash
-   python quiz_generator.py
+   python3 main.py
    ```
 
 2. **Enter a Subject**: When prompted, input the subject you want to generate a quiz question for.
