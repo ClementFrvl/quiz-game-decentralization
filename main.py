@@ -1,36 +1,45 @@
 #!/usr/bin/env python
 from huggingface_hub import InferenceClient, login
 import os
+import json
+
+def parse_quiz(quiz_string):
+    parts = quiz_string.split('\n')
+    json_strings = ["{"]
+    for line in parts:
+        if line == "}":
+            json_strings[-1] += line
+            json_strings.append("")
+        elif line == "{":
+            json_strings[-1] += line
+        elif json_strings[-1] != "":
+            json_strings[-1] += line
+
+    parsed_quiz = [json.loads(json_string) for json_string in json_strings if json_string != "" and json_string[-1] == "}"]
+
+    return parsed_quiz
 
 a = input("What subject do you want to learn about? ").strip().lower()
 
 client = InferenceClient(token=os.environ["INFERENCE_TOKEN"])
-output = client.text_generation(f"Here is a 100-token quiz like question on {a}, in the format: Question - Option A - Option B - Option C - Option D - Correct option (A/B/C/D):", max_new_tokens=150)
+question_number = 1
 
-def parse_quiz(quiz_string):
-    parts = quiz_string.split('\n')
+output = client.text_generation("""Here is the first question of a short quiz about '""" + a + """', in the json format: {'question': '...', "options": [{'id': 'A', 'question': 'Question A'}, {'id': 'B', 'question': 'Question B'} ...] , 'answer': A }.\n\nQuestion #""" + str(question_number) + """:\n{""", max_new_tokens=500)
 
-    # Find the index of the question
-    question_index = next(i for i, line in enumerate(parts) if line.startswith('Question'))
+quiz = parse_quiz(output)
 
-    # Find the indices of the options
-    options_indices = [i for i, line in enumerate(parts[question_index+1:], start=question_index+1) if line.strip()]
+for quiz_question in quiz:
+    print(f"\nQuestion #{question_number}:")
+    print(quiz_question["question"] + "\n")
 
-    print(options_indices)
+    for option in quiz_question["options"]:
+        print(option["id"] + ") " + option["question"])
 
-    quiz = {
-        'question': parts[question_index],
-        'options': {
-            'A': parts[options_indices[0]],
-            'B': parts[options_indices[1]],
-            'C': parts[options_indices[2]],
-            'D': parts[options_indices[3]],
-        },
-        'correct_option': parts[options_indices[4]].split()[-1]
-    }
+    answer = input("What is your answer? ").strip().lower()
 
-    return quiz
+    if answer == quiz_question["answer"].strip().lower():
+        print("Correct!")
+    else:
+        print("Incorrect. The correct answer is " + [a["question"] for a in quiz_question["options"] if a["id"] == quiz_question["answer"]][0] )
 
-# Test the function
-print(parse_quiz(output))
-
+    question_number += 1
