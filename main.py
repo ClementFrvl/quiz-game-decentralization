@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from huggingface_hub import InferenceClient, login
 import os
 
