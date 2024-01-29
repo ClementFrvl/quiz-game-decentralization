@@ -1,4 +1,3 @@
-```markdown
 # Quiz Generator Script
 
 ## Overview
@@ -15,7 +14,7 @@ This script is designed to generate quiz-like questions on a variety of subjects
 1. **Clone the Repository**: Clone this repository to your local machine.
 
    ```bash
-   git clone [repository-url]
+   git clone https://github.com/ClementFrvl/quiz-game-decentralization
    ```
 
 2. **Install Dependencies**: Install the necessary Python packages.
@@ -57,10 +56,3 @@ Here is a short quiz-like question on history: [Question and options will be dis
 ## Contributing
 
 Feel free to fork this repository and submit pull requests for any improvements or bug fixes.
-
-## License
-
-[Specify the license or leave this as is if the code is open-source without a specific license]
-```
-
-Replace `[repository-url]` with your repository's URL and fill in the `License` section as applicable to your project.
