@@ -20,7 +20,7 @@ This script is designed to generate quiz-like questions on a variety of subjects
 2. **Install Dependencies**: Install the necessary Python packages.
 
    ```bash
-   pip install huggingface_hub
+   pip install -r requirements.txt
    ```
 
 3. **Environment Variables**: Set up an environment variable for the Hugging Face API token. You can get this token from your Hugging Face account.
