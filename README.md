@@ -55,4 +55,10 @@ Here is a short quiz-like question on history: [Question and options will be dis
 
 ## Contributing
 
-Feel free to fork this repository and submit pull requests for any improvements or bug fixes.
+Contributions are welcome! If you have a bug to report, a feature to suggest, or a patch to contribute, please feel free to do so.
+
+To contribute, you can fork the repository, make your changes, and then submit a pull request. Please make sure to include a detailed description of your changes.
+
+If you're reporting a bug, please include as much information as possible about the issue, including the steps to reproduce it, the expected behavior, and the actual behavior.
+
+If you're suggesting a feature, please provide a detailed description of the feature and why you think it would be useful.
